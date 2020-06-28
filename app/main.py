@@ -1,4 +1,4 @@
-import env
+import secrets
 import sys
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy
@@ -9,8 +9,8 @@ if len(sys.argv) > 1:
 else:
     search_str = 'My Opeth'
 
-client_id = env.CLIENT_ID
-client_secret = env.CLIENT_SECRET
+client_id = secrets.CLIENT_ID
+client_secret = secrets.CLIENT_SECRET
 
 client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
