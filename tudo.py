@@ -63,5 +63,8 @@ def spotify(song, artist):
     response_json = response.json()
     return response_json['id']
 
+def playlist():
+    youtube()    
+
 
         
