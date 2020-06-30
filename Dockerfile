@@ -1,11 +1,11 @@
 FROM python:3.6
 
-RUN pip install spotipy
-
 WORKDIR /app
 
-COPY app/main.py .
-COPY env.py .
-# RUN pip install -r requirements.txt
+COPY automate.py .
+COPY secrets.py .
+COPY client_secret.json .
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
 
-CMD [ "python", "-u", "main.py" ]
+CMD [ "python3", "-u", "automate.py" ]

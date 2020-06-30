@@ -5,5 +5,5 @@ YOUTUBE_API_SERVICE_NAME = "youtube"
 YOUTUBE_API_VERSION = "v3"
 
 ## spotify ##
-CLIENT_ID = ""
-CLIENT_SECRET = ""
+user_id = "2115e90e412b4a83824b50e7d92c8847"
+token = "99a47d3c237b4e8eb22f693da62035c2"

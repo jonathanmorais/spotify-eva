@@ -42,7 +42,7 @@ def youtube():
         song   = video['track']
         artist = video['artist']
 
-        songs[video_title] = {
+        songs_info[video_title] = {
             "youtube_id": youtube_id,
             "song": song,
             "artist": artist
@@ -61,6 +61,58 @@ def spotify(song, artist):
     )
 
     response_json = response.json()
+    songs = response_json["tracks"]["items"]
+
+    uri = songs[0]["uri"]
+    return uri 
+
+def create_playlist():
+
+    requests_body = json.dumps({
+        "name": "Youtube Videos",
+        "description": "Description",
+        "public": False
+    })
+
+    query  = "https://api.spotify.com/v1/playlist/{}/tracks".format(user_id)
+
+    response = requests.post(
+        query,
+        data=requests_body,
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {}".format(token)
+        }
+    )
+
+
+    response_json = response.json()
+
     return response_json['id']
 
        
+def add_song():
+    youtube()
+
+    uris = []
+    for song, info in youtube.songs_info.items():
+        spotify_url = spotify(info['song_name'], info['artist'])
+        uris.append(spotify_url)
+
+    playlist_id = create_playlist()
+
+    request_data = json.dumps(uris)
+    query        = "https://api.spotify.com/v1/playlist/{}/tracks".format(playlist_id)
+
+    response = requests.post(
+        query,
+        data=request_data,
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {}".format(token)
+        }
+    )
+
+    response_json = response.json()
+
+    return response_json['id']
